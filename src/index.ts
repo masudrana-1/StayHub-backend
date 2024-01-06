@@ -8,9 +8,9 @@ import authRoutes from './routes/auth'
 mongoose.connect(process.env.MONGODB_CONNECTION as string)
 
 const app = express();
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-app.use(cors())
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 
 // user login route 
