@@ -3,6 +3,7 @@
 import express, { Request, Response } from "express";
 import { check, validationResult } from "express-validator";
 import User from "../models/user";
+import bcrypt from "bcryptjs";
 
 const router = express.Router();
 
@@ -26,9 +27,21 @@ router.post("/login", [
     // fetch user 
     try {
         const user = await User.findOne({ email });
+
+        // check email 
         if (!user) {
             return res.status(400).json({ message: "Invalid Credentials" });
         }
+
+        // check password 
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(400).json({ message: "Invalid Credentials" });
+        }
+
+
+        // http cookie 
+        const 
 
     } catch (error) {
         console.log(error);
