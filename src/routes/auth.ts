@@ -60,4 +60,8 @@ router.post("/login", [
 
 });
 
+router.get("/validation-token", varifyToken, (req: Request, res: Response) => {
+    res.status(200).send({ userId: req.userId });
+});
+
 export default router;
