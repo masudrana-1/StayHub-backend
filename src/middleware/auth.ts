@@ -1,5 +1,13 @@
 import { Request, Response, NextFunction } from "express";
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
+
+declare global {
+    namespace Express {
+        interface Request {
+            userId: string;
+        }
+    }
+}
 
 const verifyToken = (req: Request, res: Response, next: NextFunction) => {
     const token = req.cookies["auth_token"];
@@ -10,7 +18,12 @@ const verifyToken = (req: Request, res: Response, next: NextFunction) => {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY as string);
+        // catch userId 
+        req.userId = (decoded as JwtPayload).userId;
+        next();
     } catch (error) {
         return res.status(401).json({ message: "unauthorized" });
     }
-}
+};
+
+export default verifyToken;
