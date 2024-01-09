@@ -19,7 +19,7 @@ router.post("/login", [
     // validation 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ message: errors.array() });
+        return res.status(400).json({ message: errors.array() });
     };
 
 
@@ -61,7 +61,7 @@ router.post("/login", [
 
 });
 
-router.get("/validation-token", verifyToken, (req: Request, res: Response) => {
+router.get("/validate-token", verifyToken, (req: Request, res: Response) => {
     res.status(200).send({ userId: req.userId });
 });
 
