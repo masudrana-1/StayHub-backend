@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import userRoutes from './routes/users';
 import authRoutes from './routes/auth';
 import cookieParser from 'cookie-parser';
+import path from 'path';
 
 
 // mongodb connection 
@@ -19,6 +20,8 @@ app.use(cors({
     credentials: true,
 }));
 
+// front end directory
+app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 
 // user login route 
 app.use("/api/auth", authRoutes)
